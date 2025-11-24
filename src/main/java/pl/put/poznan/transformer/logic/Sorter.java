@@ -109,7 +109,34 @@ public class Sorter {
     }
 
     public static void mergeSort(double[] tab){
-        merge(tab, 0, tab.length-1);
+        mergeSort(tab, 0, tab.length-1);
     }
 
+    private static void quickSort(double [] tab, int start, int end) {
+
+        double pivot=tab[(start+end)/2];
+        int i=start;
+        int j=end;
+        double helper;
+
+        do {
+            while(tab[i]<pivot) i++;
+            while(tab[j]>pivot) j--;
+            if(i<=j) {
+                helper=tab[i];
+                tab[i]=tab[j];
+                tab[j]=helper;
+                i++;
+                j--;
+            }
+        } while (i<=j);
+
+        if(i<end) quickSort(tab, i, end);
+        if(j>start) quickSort(tab, start, j);
+
+    }
+
+    public static void quickSort(double[] tab) {
+        quickSort(tab, 0, tab.length-1);
+    }
 }

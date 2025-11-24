@@ -10,7 +10,7 @@ public class TextTransformerApplication {
 
     public static void main(String[] args) {
         double[] nums={2, 45,32, 43,1, 2, 4};
-        Sorter.mergeSort(nums);
+        Sorter.quickSort(nums);
         for (double num : nums) {
             System.out.println(num);
         }
