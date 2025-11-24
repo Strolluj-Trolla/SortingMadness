@@ -23,7 +23,6 @@ public class Sorter {
         int n=tab.length-1;
 
         for(int j=n-1;j>=0;j--) {
-
             double x=tab[j];
             int i=j+1;
             while((i<=n)&&(x>tab[i])){
@@ -31,6 +30,25 @@ public class Sorter {
                 i++;
             }
             tab[i-1]=x;
+        }
+    }
+
+    public static void binaryInsertSort(double [] tab) {
+        int n=tab.length-1;
+
+        for(int j=n-1;j>=0;j--) {
+            double x=tab[j];
+            int p=j;
+            int k=n+1;
+            while(k-p>1){
+                int i=(p+k)/2;
+                if (x<=tab[i])k=i;
+                else p=i;
+            }
+            for(int i=j; i<p; i++) {
+                tab[i]=tab[i+1];
+            }
+            tab[p]=x;
         }
     }
 
