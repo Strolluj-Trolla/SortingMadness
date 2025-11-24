@@ -139,4 +139,27 @@ public class Sorter {
     public static void quickSort(double[] tab) {
         quickSort(tab, 0, tab.length-1);
     }
+
+    //Only for non-negative integer arrays
+    public static void countingSort(int [] tab) {
+        int max=tab[0];
+        int min=tab[0];
+        for (int item: tab) {
+            if(item>max)max=item;
+            if(item<min)min=item;
+        }
+        if(min<0)throw new RuntimeException("Array contains negative values");
+
+        int[] help=new int [max+1];
+        for(int value:tab)help[value]++;
+
+        int i=0;
+        for(int j=0; j<max+1; j++){
+            for(int k=0; k<help[j]; k++) {
+                tab[i]=j;
+                i++;
+            }
+        }
+
+    }
 }
