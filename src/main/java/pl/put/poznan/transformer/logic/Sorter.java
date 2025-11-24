@@ -23,13 +23,13 @@ public class Sorter {
         int n=tab.length-1;
 
         for(int j=n-1;j>=0;j--) {
-            double x=tab[j];
+            double helper=tab[j];
             int i=j+1;
-            while((i<=n)&&(x>tab[i])){
+            while((i<=n)&&(helper>tab[i])){
                 tab[i-1]=tab[i];
                 i++;
             }
-            tab[i-1]=x;
+            tab[i-1]=helper;
         }
     }
 
@@ -37,19 +37,33 @@ public class Sorter {
         int n=tab.length-1;
 
         for(int j=n-1;j>=0;j--) {
-            double x=tab[j];
+            double helper=tab[j];
             int p=j;
             int k=n+1;
             while(k-p>1){
                 int i=(p+k)/2;
-                if (x<=tab[i])k=i;
+                if (helper<=tab[i])k=i;
                 else p=i;
             }
             for(int i=j; i<p; i++) {
                 tab[i]=tab[i+1];
             }
-            tab[p]=x;
+            tab[p]=helper;
         }
+    }
+
+    public static void selectionSort(double[] tab) {
+
+        for(int k=tab.length-1; k>0; k--) {
+            int max=k;
+            for (int i=0; i<k;i++) {
+                if(tab[i]>tab[max])max=i;
+            }
+            double helper=tab[max];
+            tab[max]=tab[k];
+            tab[k]=helper;
+        }
+
     }
 
 }
