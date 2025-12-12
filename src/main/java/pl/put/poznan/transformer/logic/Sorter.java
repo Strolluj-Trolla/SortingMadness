@@ -1,10 +1,11 @@
 package pl.put.poznan.transformer.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sorter {
 
-    public class Result{
+    public static class Result{
         final private String name;
         final private double time;
         final private String errMessage;
@@ -49,7 +50,7 @@ public class Sorter {
     }
 
     //numeric data
-    public ArrayList<Result> measure (double[] data, ArrayList<String > names){
+    public List<Result> measure (double[] data, ArrayList<String > names){
         ArrayList<Result> results = new ArrayList<>();
         int[] convData;
         convData = new int[data.length];
@@ -103,7 +104,7 @@ public class Sorter {
         return results;
     }
 
-    public static void bubbleSort ( double[] tab){
+    public static void bubbleSort(double[] tab){
         boolean changed = false;
 
         for (int i = tab.length - 1; i > 0; i--) {
