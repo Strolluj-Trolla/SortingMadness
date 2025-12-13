@@ -1,6 +1,6 @@
 package pl.put.poznan.transformer.logic;
 
-public class Cell {
+public class Cell{
     public final String str;
     public final Double num;
     public Cell(String str){

@@ -4,7 +4,7 @@ import static java.util.Objects.isNull;
 
 public class MergeSort implements SortAlgorithm{
     public void sort(Cell[][] tab, int column) {
-        mergeSort(tab, column, 0, tab.length);
+        mergeSort(tab, column, 0, tab.length-1);
     }
 
     private static void merge(Cell[][] tab, int column, int start, int end){

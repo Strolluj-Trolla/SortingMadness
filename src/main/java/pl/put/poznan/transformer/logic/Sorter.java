@@ -5,52 +5,60 @@ import java.util.List;
 
 public class Sorter {
 
-    public static class Result{
+    public static class Result {
         final private String name;
         final private double time;
         final private String errMessage;
         final private double[] numericData;
         final private String[] stringData;
-        public Result(String name, double time, double[] data){
-            this.name=name;
-            this.time=time;
-            this.numericData =data;
-            this.stringData=null;
-            this.errMessage=null;
+
+        public Result(String name, double time, double[] data) {
+            this.name = name;
+            this.time = time;
+            this.numericData = data;
+            this.stringData = null;
+            this.errMessage = null;
         }
-        public Result(String name, double time, String[] data){
-            this.name=name;
-            this.time=time;
-            this.numericData=null;
-            this.stringData=data;
-            this.errMessage=null;
+
+        public Result(String name, double time, String[] data) {
+            this.name = name;
+            this.time = time;
+            this.numericData = null;
+            this.stringData = data;
+            this.errMessage = null;
         }
-        public Result(String name, String errMessage){
-            this.name=name;
-            this.time=-1;
-            this.numericData =null;
-            this.stringData=null;
-            this.errMessage=errMessage;
+
+        public Result(String name, String errMessage) {
+            this.name = name;
+            this.time = -1;
+            this.numericData = null;
+            this.stringData = null;
+            this.errMessage = errMessage;
         }
-        public String getName(){
+
+        public String getName() {
             return this.name;
         }
-        public double getTime(){
+
+        public double getTime() {
             return this.time;
         }
-        public double[] getNumericData(){
+
+        public double[] getNumericData() {
             return this.numericData;
         }
-        public String[] getStringData(){
+
+        public String[] getStringData() {
             return this.stringData;
         }
-        public String getErrMessage(){
+
+        public String getErrMessage() {
             return this.errMessage;
         }
     }
 
     //numeric data
-    public List<Result> measure (double[] data, ArrayList<String > names){
+    public List<Result> measure(double[] data, ArrayList<String> names) {
         ArrayList<Result> results = new ArrayList<>();
         int[] convData;
         convData = new int[data.length];
@@ -90,7 +98,7 @@ public class Sorter {
                 time = System.currentTimeMillis() - time;
                 if (name.equals("counting")) {
                     for (int i = 0; i < data.length; i++) {
-                        double d =convData[i];
+                        double d = convData[i];
                         sorted[i] = d;
                     }
                 }
@@ -104,47 +112,40 @@ public class Sorter {
         return results;
     }
 
-    public void bubbleSort(double[] sorted){}
-    public void bubbleSort(String[] sorted){}
-    public static void insertSort ( double[] tab){}
-    public static void insertSort (String[] tab){}
-    public static void binaryInsertSort (String[] tab){}
-    public static void binaryInsertSort ( double[] tab){}
-    public static void selectionSort ( double[] tab){}
-    public static void selectionSort (String[] tab){}
-    public static void mergeSort (double[] tab){}
-    public static void mergeSort (String[] tab){}
-
-    private static void quickSort ( double[] tab, int start, int end){
-
-        double pivot = tab[(start + end) / 2];
-        int i = start;
-        int j = end;
-        double helper;
-
-        do {
-            while (tab[i] < pivot) i++;
-            while (tab[j] > pivot) j--;
-            if (i <= j) {
-                helper = tab[i];
-                tab[i] = tab[j];
-                tab[j] = helper;
-                i++;
-                j--;
-            }
-        } while (i <= j);
-
-        if (i < end) quickSort(tab, i, end);
-        if (j > start) quickSort(tab, start, j);
-
+    public void bubbleSort(double[] sorted) {
     }
 
-    public static void quickSort ( double[] tab){
-        quickSort(tab, 0, tab.length - 1);
+    public void bubbleSort(String[] sorted) {
     }
 
-    //Only for non-negative integer arrays
-    public static void countingSort ( int[] tab){
+    public static void insertSort(double[] tab) {
+    }
+
+    public static void insertSort(String[] tab) {
+    }
+
+    public static void binaryInsertSort(String[] tab) {
+    }
+
+    public static void binaryInsertSort(double[] tab) {
+    }
+
+    public static void selectionSort(double[] tab) {
+    }
+
+    public static void selectionSort(String[] tab) {
+    }
+
+    public static void mergeSort(double[] tab) {
+    }
+
+    public static void mergeSort(String[] tab) {
+    }
+    public static void quickSort(double[] tab) {}
+    public static void quickSort (String[] tab){}
+
+    //only for 1-dim int arrays
+    public static void countingSort(int[] tab) {
         int max = tab[0];
         int min = tab[0];
         for (int item : tab) {
@@ -166,8 +167,7 @@ public class Sorter {
 
     }
 
-    //text data
-    public ArrayList<Result> measure (String[] data, ArrayList<String > names){
+    public ArrayList<Result> measure(String[] data, ArrayList<String> names) {
         ArrayList<Result> results = new ArrayList<>();
         for (String name : names) {
             try {
@@ -199,54 +199,4 @@ public class Sorter {
         return results;
     }
 
-    private static void merge (String[] tab, int start, int end){
-
-        String[] helper = new String[end - start + 1];
-        if (end - start >= 0) System.arraycopy(tab, start, helper, 0, end - start + 1);
-
-        int middle = (start + end) / 2;
-        int i = start;
-        int i_left = start;
-        int i_right = middle + 1;
-
-        while (i_left <= middle) {
-            tab[i] = helper[i_left - start];
-            i_left++;
-            i++;
-        }
-        while (i_right <= end) {
-            tab[i] = helper[i_right - start];
-            i_right++;
-            i++;
-        }
-
-    }
-
-    private static void quickSort (String[] tab, int start, int end){
-
-        String pivot = tab[(start + end) / 2];
-        int i = start;
-        int j = end;
-        String helper;
-
-        do {
-            while (tab[i].compareTo(pivot)<0) i++;
-            while (tab[j].compareTo(pivot)>0) j--;
-            if (i <= j) {
-                helper = tab[i];
-                tab[i] = tab[j];
-                tab[j] = helper;
-                i++;
-                j--;
-            }
-        } while (i <= j);
-
-        if (i < end) quickSort(tab, i, end);
-        if (j > start) quickSort(tab, start, j);
-
-    }
-
-    public static void quickSort (String[] tab){
-        quickSort(tab, 0, tab.length - 1);
-    }
 }
