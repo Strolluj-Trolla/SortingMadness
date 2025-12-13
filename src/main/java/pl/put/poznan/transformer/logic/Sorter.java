@@ -112,51 +112,8 @@ public class Sorter {
     public static void binaryInsertSort ( double[] tab){}
     public static void selectionSort ( double[] tab){}
     public static void selectionSort (String[] tab){}
-
-    private static void merge ( double[] tab, int start, int end){
-
-        double[] helper = new double[end - start + 1];
-        if (end - start >= 0) System.arraycopy(tab, start, helper, 0, end - start + 1);
-
-        int middle = (start + end) / 2;
-        int i = start;
-        int i_left = start;
-        int i_right = middle + 1;
-        while (i_left <= middle && i_right <= end) {
-            if (helper[i_left - start] < helper[i_right - start]) {
-                tab[i] = helper[i_left - start];
-                i_left++;
-            } else {
-                tab[i] = helper[i_right - start];
-                i_right++;
-            }
-            i++;
-        }
-        while (i_left <= middle) {
-            tab[i] = helper[i_left - start];
-            i_left++;
-            i++;
-        }
-        while (i_right <= end) {
-            tab[i] = helper[i_right - start];
-            i_right++;
-            i++;
-        }
-
-    }
-
-    private static void mergeSort ( double[] tab, int start, int end){
-
-        int middle = (start + end) / 2;
-        if (start < middle) mergeSort(tab, start, middle);
-        if (middle + 1 < end) mergeSort(tab, middle + 1, end);
-        merge(tab, start, end);
-
-    }
-
-    public static void mergeSort ( double[] tab){
-        mergeSort(tab, 0, tab.length - 1);
-    }
+    public static void mergeSort (double[] tab){}
+    public static void mergeSort (String[] tab){}
 
     private static void quickSort ( double[] tab, int start, int end){
 
@@ -251,16 +208,7 @@ public class Sorter {
         int i = start;
         int i_left = start;
         int i_right = middle + 1;
-        while (i_left <= middle && i_right <= end) {
-            if (helper[i_left - start].compareTo(helper[i_right - start])<0) {
-                tab[i] = helper[i_left - start];
-                i_left++;
-            } else {
-                tab[i] = helper[i_right - start];
-                i_right++;
-            }
-            i++;
-        }
+
         while (i_left <= middle) {
             tab[i] = helper[i_left - start];
             i_left++;
@@ -272,19 +220,6 @@ public class Sorter {
             i++;
         }
 
-    }
-
-    private static void mergeSort ( String[] tab, int start, int end){
-
-        int middle = (start + end) / 2;
-        if (start < middle) mergeSort(tab, start, middle);
-        if (middle + 1 < end) mergeSort(tab, middle + 1, end);
-        merge(tab, start, end);
-
-    }
-
-    public static void mergeSort (String[] tab){
-        mergeSort(tab, 0, tab.length - 1);
     }
 
     private static void quickSort (String[] tab, int start, int end){
