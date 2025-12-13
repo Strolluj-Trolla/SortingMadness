@@ -16,10 +16,15 @@ jobs:
           cache: maven
       - name: Validate, build and run tests
         run: mvn --batch-mode --update-snapshots verify
-      - name: prepare .jar file
+      - name: Prepare .jar file
         run: mkdir staging && cp target/*.jar staging
-      - name: upload build
+      - name: Upload build
         uses: actions/upload-artifact@v4
         with:
           name: SortingMadness
           path: staging
+      - name: Release the build if tagged
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: staging/*
