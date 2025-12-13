@@ -49,7 +49,7 @@ public class Result {
             System.out.println("Results of algorithm "+res.getName()+":");
             if(res.isError())System.out.println(res.getErrMessage());
             else{
-                System.out.println("Time: "+res.getTime());
+                System.out.println("Time: "+res.getTime()+"ns");
                 System.out.println("Sorted data:");
                 Cell[][] sorted=res.getData();
                 for (Cell[] cells : sorted) {

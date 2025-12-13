@@ -1,5 +1,7 @@
 package pl.put.poznan.transformer.logic;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,15 +52,16 @@ public class Measurer {
                     case "quick":
                         this.sorter.setStrategy(new QuickSort());
                 }
-                long time = System.currentTimeMillis();
+                Instant start = Instant.now();
                 if(name.equals("counting")){
                     if (!possible) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
                     }
                     Sorter.countingSort(convData);
                 }
-                else sorter.sort(data, column);
-                time = System.currentTimeMillis() - time;
+                else sorter.sort(sorted, column);
+                Instant end = Instant.now();
+                long time= Duration.between(start, end).toNanos();
                 if ((name.equals("counting"))&&(possible)) {
                     for (int i = 0; i < data.length; i++) {
                         sorted[i][0] = new Cell(convData[i]);
