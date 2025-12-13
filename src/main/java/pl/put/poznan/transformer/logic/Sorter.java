@@ -1,5 +1,7 @@
 package pl.put.poznan.transformer.logic;
 
+import pl.put.poznan.transformer.logic.SortAlgorithm.Order;
+
 public class Sorter {
 
     private SortAlgorithm algo;
@@ -12,12 +14,12 @@ public class Sorter {
         this.algo=algorithm;
     }
 
-    public void sort(Cell[][] tab, int column){
-        algo.sort(tab, column);
+    public void sort(Cell[][] tab, int column, int maxIter, Order order){
+        algo.sort(tab, column, maxIter, order);
     }
 
     //only for 1-dim int arrays
-    public static void countingSort(int[] tab) {
+    public static void countingSort(int[] tab, Order order) {
         int max = tab[0];
         int min = tab[0];
         for (int item : tab) {
@@ -30,14 +32,21 @@ public class Sorter {
         for (int value : tab) help[value]++;
 
         int i = 0;
-        for (int j = 0; j < max + 1; j++) {
-            for (int k = 0; k < help[j]; k++) {
-                tab[i] = j;
-                i++;
+        if(order==Order.RISING){
+            for (int j = 0; j < max + 1; j++) {
+                for (int k = 0; k < help[j]; k++) {
+                    tab[i] = j;
+                    i++;
+                }
             }
         }
-
+        else{
+            for (int j = max; j >= 0; j--) {
+                for (int k = 0; k < help[j]; k++) {
+                    tab[i] = j;
+                    i++;
+                }
+            }
+        }
     }
-
-
 }

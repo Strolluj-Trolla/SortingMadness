@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import pl.put.poznan.transformer.logic.SortAlgorithm.Order;
 
 import static java.util.Objects.isNull;
 
@@ -14,7 +15,11 @@ public class Measurer {
         this.sorter = new Sorter();
     }
 
-    public List<Result> measure(Cell[][] data, int column, List<String> names) {
+    public List<Result> measure(Cell[][] data, int column, List<String> names){
+        return measure(data, column, names, -1, Order.RISING);
+    }
+
+    public List<Result> measure(Cell[][] data, int column, List<String> names, int maxIter, Order order) {
         ArrayList<Result> results = new ArrayList<>();
         boolean possible = true;
         int[] convData={};
@@ -57,12 +62,12 @@ public class Measurer {
                     if (!possible) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
                     }
-                    Sorter.countingSort(convData);
+                    Sorter.countingSort(convData, order);
                 }
-                else sorter.sort(sorted, column);
+                else sorter.sort(sorted, column, maxIter, order);
                 Instant end = Instant.now();
                 long time= Duration.between(start, end).toNanos();
-                if ((name.equals("counting"))&&(possible)) {
+                if (name.equals("counting")) {
                     for (int i = 0; i < data.length; i++) {
                         sorted[i][0] = new Cell(convData[i]);
                     }
