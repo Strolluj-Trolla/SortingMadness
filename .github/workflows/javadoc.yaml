@@ -19,3 +19,4 @@ jobs:
           javadoc-branch: javadoc
           java-version: 11
           target-folder: javadoc 
+          project: maven
