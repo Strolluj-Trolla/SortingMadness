@@ -5,10 +5,16 @@ import static java.util.Objects.isNull;
 public class BubbleSort implements SortAlgorithm {
     public void sort(Cell[][] tab, int column, int maxIter, Order order) {
         boolean changed = false;
+        int curIter=0;
+        int sign=1;
+        if(order==Order.FALLING)sign=-1;
+
         if(isNull(tab[0][column].str)) {
             for (int i = tab.length - 1; i > 0; i--) {
+                if((curIter>=maxIter)&&(maxIter!=0))return;
+                curIter++;
                 for (int j = 0; j < i; j++) {
-                    if (tab[j][column].num > tab[j + 1][column].num) {
+                    if (sign*tab[j][column].num > sign*tab[j + 1][column].num) {
                         Cell[] helper = tab[j + 1];
                         tab[j + 1] = tab[j];
                         tab[j] = helper;
@@ -21,8 +27,10 @@ public class BubbleSort implements SortAlgorithm {
         }
         else{
             for (int i = tab.length - 1; i > 0; i--) {
+                if((curIter>=maxIter)&&(maxIter!=0))return;
+                curIter++;
                 for (int j = 0; j < i; j++) {
-                    if (tab[j][column].str.compareTo(tab[j + 1][column].str)>0) {
+                    if (sign*tab[j][column].str.compareTo(tab[j + 1][column].str)>0) {
                         Cell[] helper = tab[j + 1];
                         tab[j + 1] = tab[j];
                         tab[j] = helper;

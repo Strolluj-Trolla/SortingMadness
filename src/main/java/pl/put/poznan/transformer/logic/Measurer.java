@@ -62,7 +62,7 @@ public class Measurer {
                 else sorter.sort(sorted, column, maxIter, order);
                 Instant end = Instant.now();
                 long time= Duration.between(start, end).toNanos();
-                if ((name.equals("counting"))&&(possible)) {
+                if (name.equals("counting")) {
                     for (int i = 0; i < data.length; i++) {
                         sorted[i][0] = new Cell(convData[i]);
                     }
