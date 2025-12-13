@@ -12,7 +12,7 @@ public class Measurer {
         this.sorter = new Sorter();
     }
 
-    public List<Result> measure(Cell[][] data, int column, ArrayList<String> names) {
+    public List<Result> measure(Cell[][] data, int column, List<String> names) {
         ArrayList<Result> results = new ArrayList<>();
         boolean possible = true;
         int[] convData={};
