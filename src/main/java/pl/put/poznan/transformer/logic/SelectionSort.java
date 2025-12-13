@@ -3,7 +3,7 @@ package pl.put.poznan.transformer.logic;
 import static java.util.Objects.isNull;
 
 public class SelectionSort implements SortAlgorithm {
-    public void sort(Cell[][] tab, int column) {
+    public void sort(Cell[][] tab, int column, int maxIter, Order order) {
         if(isNull(tab[0][column].str)) {
             for (int k = tab.length - 1; k > 0; k--) {
                 int max = k;

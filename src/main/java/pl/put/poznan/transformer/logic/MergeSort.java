@@ -3,7 +3,7 @@ package pl.put.poznan.transformer.logic;
 import static java.util.Objects.isNull;
 
 public class MergeSort implements SortAlgorithm{
-    public void sort(Cell[][] tab, int column) {
+    public void sort(Cell[][] tab, int column, int maxIter, Order order) {
         mergeSort(tab, column, 0, tab.length-1);
     }
 

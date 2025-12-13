@@ -3,7 +3,7 @@ package pl.put.poznan.transformer.logic;
 import static java.util.Objects.isNull;
 
 public class BubbleSort implements SortAlgorithm {
-    public void sort(Cell[][] tab, int column) {
+    public void sort(Cell[][] tab, int column, int maxIter, Order order) {
         boolean changed = false;
         if(isNull(tab[0][column].str)) {
             for (int i = tab.length - 1; i > 0; i--) {

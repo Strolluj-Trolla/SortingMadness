@@ -1,5 +1,6 @@
 package pl.put.poznan.transformer.logic;
 
 public interface SortAlgorithm {
-    void sort(Cell[][] tab, int column);
+    enum Order{RISING, FALLING}
+    void sort(Cell[][] tab, int column, int maxIter, Order order);
 }

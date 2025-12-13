@@ -3,7 +3,7 @@ package pl.put.poznan.transformer.logic;
 import static java.util.Objects.isNull;
 
 public class BinaryInsertSort implements SortAlgorithm{
-    public void sort(Cell[][] tab, int column) {
+    public void sort(Cell[][] tab, int column, int maxIter, Order order) {
         int n = tab.length - 1;
 
         if(isNull(tab[0][column].str)) {

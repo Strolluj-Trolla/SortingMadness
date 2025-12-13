@@ -14,7 +14,7 @@ public class Measurer {
         this.sorter = new Sorter();
     }
 
-    public List<Result> measure(Cell[][] data, int column, List<String> names) {
+    public List<Result> measure(Cell[][] data, int column, List<String> names, int maxIter, SortAlgorithm.Order order) {
         ArrayList<Result> results = new ArrayList<>();
         boolean possible = true;
         int[] convData={};
@@ -59,7 +59,7 @@ public class Measurer {
                     }
                     Sorter.countingSort(convData);
                 }
-                else sorter.sort(sorted, column);
+                else sorter.sort(sorted, column, maxIter, order);
                 Instant end = Instant.now();
                 long time= Duration.between(start, end).toNanos();
                 if ((name.equals("counting"))&&(possible)) {
