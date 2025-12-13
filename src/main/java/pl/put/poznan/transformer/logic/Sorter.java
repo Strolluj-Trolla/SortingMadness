@@ -104,35 +104,11 @@ public class Sorter {
         return results;
     }
 
-    public static void bubbleSort(double[] tab){
-        boolean changed = false;
-
-        for (int i = tab.length - 1; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                if (tab[j] > tab[j + 1]) {
-                    double helper = tab[j + 1];
-                    tab[j + 1] = tab[j];
-                    tab[j] = helper;
-
-                    changed = true;
-                }
-            }
-            if (!changed) return;
-        }
-    }
+    public void bubbleSort(double[] sorted){}
+    public void bubbleSort(String[] sorted){}
 
     public static void insertSort ( double[] tab){
-        int n = tab.length - 1;
 
-        for (int j = n - 1; j >= 0; j--) {
-            double helper = tab[j];
-            int i = j + 1;
-            while ((i <= n) && (helper > tab[i])) {
-                tab[i - 1] = tab[i];
-                i++;
-            }
-            tab[i - 1] = helper;
-        }
     }
 
     public static void binaryInsertSort ( double[] tab){
@@ -296,35 +272,8 @@ public class Sorter {
         return results;
     }
 
-    public static void bubbleSort (String[] tab){
-        boolean changed = false;
-
-        for (int i = tab.length - 1; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                if (tab[j].compareTo(tab[j + 1])>0) {
-                    String helper = tab[j + 1];
-                    tab[j + 1] = tab[j];
-                    tab[j] = helper;
-
-                    changed = true;
-                }
-            }
-            if (!changed) return;
-        }
-    }
-
     public static void insertSort (String[] tab){
-        int n = tab.length - 1;
 
-        for (int j = n - 1; j >= 0; j--) {
-            String helper = tab[j];
-            int i = j + 1;
-            while ((i <= n) && (helper.compareTo(tab[i]))>0) {
-                tab[i - 1] = tab[i];
-                i++;
-            }
-            tab[i - 1] = helper;
-        }
     }
 
     public static void binaryInsertSort (String[] tab){

@@ -27,7 +27,7 @@ public class TextTransformerApplication {
         for (Cell[] cell:cells) {
             System.out.println(cell[0].num);
         }
-        cells= new Cell[][]{{new Cell("ab")}, {new Cell("ba")}, {new Cell("b")}};
+        cells= new Cell[][]{{new Cell("ab")}, {new Cell("ba")}, {new Cell("b")}, {new Cell("3")}};
         bubbleSort.sort(cells, 0);
         for (Cell[] cell:cells) {
             System.out.println(cell[0].str);
