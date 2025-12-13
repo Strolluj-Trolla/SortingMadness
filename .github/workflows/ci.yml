@@ -1,4 +1,4 @@
-name: Java CI
+name: Verify and build
 
 on: [push]
 
@@ -16,3 +16,10 @@ jobs:
           cache: maven
       - name: Validate, build and run tests
         run: mvn --batch-mode --update-snapshots verify
+      - name: prepare .jar file
+      - run: mkdir staging && cp target/*.jar staging
+      - name: upload build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SortingMadness
+          path: staging
