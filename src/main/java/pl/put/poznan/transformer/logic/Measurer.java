@@ -46,16 +46,22 @@ public class Measurer {
                 switch (name) {
                     case "bubble":
                         this.sorter.setStrategy(new BubbleSort());
+                        break;
                     case "insertion":
                         this.sorter.setStrategy(new InsertSort());
+                        break;
                     case "binaryInsertion":
                         this.sorter.setStrategy(new BinaryInsertSort());
+                        break;
                     case "selection":
                         this.sorter.setStrategy(new SelectionSort());
+                        break;
                     case "merge":
                         this.sorter.setStrategy(new MergeSort());
+                        break;
                     case "quick":
                         this.sorter.setStrategy(new QuickSort());
+                        break;
                 }
                 Instant start = Instant.now();
                 if(name.equals("counting")){
