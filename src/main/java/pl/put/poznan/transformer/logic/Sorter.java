@@ -19,7 +19,7 @@ public class Sorter {
     }
 
     //only for 1-dim int arrays
-    public static void countingSort(int[] tab) {
+    public static void countingSort(int[] tab, Order order) {
         int max = tab[0];
         int min = tab[0];
         for (int item : tab) {
@@ -32,14 +32,21 @@ public class Sorter {
         for (int value : tab) help[value]++;
 
         int i = 0;
-        for (int j = 0; j < max + 1; j++) {
-            for (int k = 0; k < help[j]; k++) {
-                tab[i] = j;
-                i++;
+        if(order==Order.RISING){
+            for (int j = 0; j < max + 1; j++) {
+                for (int k = 0; k < help[j]; k++) {
+                    tab[i] = j;
+                    i++;
+                }
             }
         }
-
+        else{
+            for (int j = max; j >= 0; j--) {
+                for (int k = 0; k < help[j]; k++) {
+                    tab[i] = j;
+                    i++;
+                }
+            }
+        }
     }
-
-
 }
