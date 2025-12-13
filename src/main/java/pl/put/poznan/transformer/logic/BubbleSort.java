@@ -11,7 +11,7 @@ public class BubbleSort implements SortAlgorithm {
 
         if(isNull(tab[0][column].str)) {
             for (int i = tab.length - 1; i > 0; i--) {
-                if((curIter>=maxIter)&&(maxIter!=0))return;
+                if((curIter>=maxIter)&&(maxIter!=-1))return;
                 curIter++;
                 for (int j = 0; j < i; j++) {
                     if (sign*tab[j][column].num > sign*tab[j + 1][column].num) {
@@ -27,7 +27,7 @@ public class BubbleSort implements SortAlgorithm {
         }
         else{
             for (int i = tab.length - 1; i > 0; i--) {
-                if((curIter>=maxIter)&&(maxIter!=0))return;
+                if((curIter>=maxIter)&&(maxIter!=-1))return;
                 curIter++;
                 for (int j = 0; j < i; j++) {
                     if (sign*tab[j][column].str.compareTo(tab[j + 1][column].str)>0) {

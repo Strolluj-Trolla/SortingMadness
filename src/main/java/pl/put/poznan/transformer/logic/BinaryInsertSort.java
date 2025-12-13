@@ -11,7 +11,7 @@ public class BinaryInsertSort implements SortAlgorithm{
 
         if(isNull(tab[0][column].str)) {
             for (int j = n - 1; j >= 0; j--) {
-                if((curIter>=maxIter)&&(maxIter!=0))return;
+                if((curIter>=maxIter)&&(maxIter!=-1))return;
                 curIter++;
                 Cell[] helper = tab[j];
                 int p = j;
@@ -29,7 +29,7 @@ public class BinaryInsertSort implements SortAlgorithm{
         }
         else{
             for (int j = n - 1; j >= 0; j--) {
-                if((curIter>=maxIter)&&(maxIter!=0))return;
+                if((curIter>=maxIter)&&(maxIter!=-1))return;
                 curIter++;
                 Cell[] helper = tab[j];
                 int p = j;
