@@ -5,87 +5,98 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import pl.put.poznan.transformer.logic.SortAlgorithm.Order;
-
 import static java.util.Objects.isNull;
 
 public class Measurer {
     private final Sorter sorter;
 
-    public Measurer(){
+    public Measurer() {
         this.sorter = new Sorter();
     }
 
-    public List<Result> measure(Cell[][] data, int column, List<String> names){
+    public List<Result> measure(Cell[][] data, int column, List<String> names) {
         return measure(data, column, names, -1, Order.RISING);
     }
 
     public List<Result> measure(Cell[][] data, int column, List<String> names, int maxIter, Order order) {
-        ArrayList<Result> results = new ArrayList<>();
-        boolean possible = true;
-        int[] convData={};
-        if((data[0].length==1)&&(!isNull(data[0][0].num))){
-            convData = new int[data.length];
+        List<Result> results = new ArrayList<>();
+
+        if (data == null || data.length == 0) {
+            results.add(new Result("all", "Input data is empty"));
+            return results;
+        }
+
+        boolean countingApplicable = (data[0].length == 1 && !isNull(data[0][0].num));
+        int[] convData = new int[data.length];
+        if (countingApplicable) {
             for (int i = 0; i < data.length; i++) {
-                int integ = data[i][0].num.intValue();
-                if (integ != data[i][0].num||integ<0) {
-                    possible = false;
+                double val = data[i][0].num;
+                long rounded = Math.round(val);
+                if (val != rounded || rounded < 0) {
+                    countingApplicable = false;
                     break;
                 }
-                convData[i] = integ;
+                convData[i] = (int) rounded;
             }
         }
-        else possible = false;
 
         for (String name : names) {
             try {
                 Cell[][] sorted = new Cell[data.length][];
                 for (int i = 0; i < data.length; i++) {
-                    sorted[i]=new Cell[data[i].length];
+                    sorted[i] = new Cell[data[i].length];
                     System.arraycopy(data[i], 0, sorted[i], 0, data[i].length);
                 }
+
+                boolean algorithmRecognized = true;
                 switch (name) {
-                    case "bubble":
-                        this.sorter.setStrategy(new BubbleSort());
-                        break;
-                    case "insertion":
-                        this.sorter.setStrategy(new InsertSort());
-                        break;
-                    case "binaryInsertion":
-                        this.sorter.setStrategy(new BinaryInsertSort());
-                        break;
-                    case "selection":
-                        this.sorter.setStrategy(new SelectionSort());
-                        break;
-                    case "merge":
-                        this.sorter.setStrategy(new MergeSort());
-                        break;
-                    case "quick":
-                        this.sorter.setStrategy(new QuickSort());
+                    case "bubble": sorter.setStrategy(new BubbleSort());
+                    break;
+                    case "insertion": sorter.setStrategy(new InsertSort());
+                    break;
+                    case "binaryInsertion": sorter.setStrategy(new BinaryInsertSort());
+                    break;
+                    case "selection": sorter.setStrategy(new SelectionSort());
+                    break;
+                    case "merge": sorter.setStrategy(new MergeSort());
+                    break;
+                    case "quick": sorter.setStrategy(new QuickSort());
+                    break;
+                    case "counting":
+                    break;
+                    default:
+                        algorithmRecognized = false;
+                        results.add(new Result(name, "Algorithm not recognized"));
                         break;
                 }
+
+                if (!algorithmRecognized) continue;
+
                 Instant start = Instant.now();
-                if(name.equals("counting")){
-                    if (!possible) {
+
+                if ("counting".equals(name)) {
+                    if (!countingApplicable) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
                     }
                     Sorter.countingSort(convData, order);
-                }
-                else sorter.sort(sorted, column, maxIter, order);
-                Instant end = Instant.now();
-                long time= Duration.between(start, end).toNanos();
-                if (name.equals("counting")) {
                     for (int i = 0; i < data.length; i++) {
                         sorted[i][0] = new Cell(convData[i]);
                     }
+                } else {
+                    sorter.sort(sorted, column, maxIter, order);
                 }
-                results.add(new Result(name, time, sorted));
+
+                Instant end = Instant.now();
+                long timeNs = Duration.between(start, end).toNanos();
+                results.add(new Result(name, timeNs, sorted));
+
             } catch (IllegalArgumentException ex) {
                 results.add(new Result(name, ex.getMessage()));
             } catch (Exception ex) {
                 results.add(new Result(name, "Error while sorting: " + ex.getMessage()));
             }
         }
+
         return results;
     }
-
 }
