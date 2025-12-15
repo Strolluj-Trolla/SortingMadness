@@ -47,20 +47,10 @@ public class Cell implements Comparable<Cell> {
         this.num = null;
     }
 
-    /**
-     * Getter for the {@link #num} field
-     *
-     * @return the value of {@link #num}
-     */
     public Double getNum() {
         return num;
     }
 
-    /**
-     * Getter for the {@link #str} field
-     *
-     * @return the value of {@link #str}
-     */
     public String getStr() {
         return str;
     }

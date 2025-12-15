@@ -61,29 +61,15 @@ public class Result {
         this.errMessage = errMessage;
     }
 
-    /**
-     * Getter for the {@link #name} field
-     *
-     * @return the value of {@link #name}
-     */
+
     public String getName() {
         return this.name;
     }
 
-    /**
-     * Getter for the {@link #time} field
-     *
-     * @return the value of {@link #time}
-     */
     public double getTime() {
         return this.time;
     }
 
-    /**
-     * Getter for the {@link #data} field
-     *
-     * @return the value of {@link #data}
-     */
     public Cell[][] getData() {
         return this.data;
     }
@@ -97,20 +83,10 @@ public class Result {
         return this.errMessage != null;
     }
 
-    /**
-     * Getter for the {@link #complete} field
-     *
-     * @return the value of {@link #complete}
-     */
     public boolean isComplete() {
         return complete;
     }
 
-    /**
-     * Getter for the {@link #errMessage} field
-     *
-     * @return the value of {@link #errMessage}
-     */
     public String getErrMessage() {
         return this.errMessage;
     }
