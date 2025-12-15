@@ -8,7 +8,7 @@ public class MergeSort implements SortAlgorithm{
      * A wrapper for {@link #mergeSort(Cell[][], int, int, int, int, Order)} compatible the {@link SortAlgorithm} interface.
      *
      * @param tab a 2-D array of type {@link Cell} to be sorted.
-     * @param column the number of the column which will be the sorting criteria.
+     * @param column the index of the column which will be the sorting criteria.
      * @param maxIter maximum recursion depth. Value of {@code -1} means unlimited iterations,
      * {@code <-1} means none.
      * @param order an enum Order value determining the sorting direction.
@@ -21,7 +21,7 @@ public class MergeSort implements SortAlgorithm{
     /**
      * Performs a merge of two sorted parts of an array. Uses a helper array and as such is not performed in-place.
      * @param tab a 2-D array of type {@link Cell} to be sorted.
-     * @param column the number of the column which will be the sorting criteria.
+     * @param column the index of the column which will be the sorting criteria.
      * @param start the index of the first value to be included in the sorting.
      * @param end the index of the last value to be included in the sorting.
      * @param order order an enum Order value determining the sorting direction
@@ -64,7 +64,7 @@ public class MergeSort implements SortAlgorithm{
      * <a href="https://en.wikipedia.org/wiki/Merge_sort">merge sort algorithm</a>
      *
      * @param tab a 2-D array of type {@link Cell} to be sorted.
-     * @param column the number of the column which will be the sorting criteria.
+     * @param column the index of the column which will be the sorting criteria.
      * @param start the index of the first value to be included in the sorting.
      * @param end the index of the last value to be included in the sorting.
      * @param maxDepth maximum recursion depth. Value of {@code -1} means unlimited iterations,

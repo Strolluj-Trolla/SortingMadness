@@ -8,7 +8,7 @@ public class QuickSort implements SortAlgorithm{
      * A wrapper for {@link #quickSort(Cell[][], int, int, int, int, Order)} compatible the {@link SortAlgorithm} interface.
      *
      * @param tab a 2-D array of type {@link Cell} to be sorted.
-     * @param column the number of the column which will be the sorting criteria.
+     * @param column the index of the column which will be the sorting criteria.
      * @param maxIter maximum recursion depth. Value of {@code -1} means unlimited iterations,
      * {@code <-1} means none.
      * @param order an enum Order value determining the sorting direction.
