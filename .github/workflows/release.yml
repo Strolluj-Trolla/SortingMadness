@@ -3,9 +3,9 @@ name: Release if tagged
 on:
   push:
     branches:
-      - "main"
+      "main"
     tags:
-      - "v*"
+      "v*"
       
 jobs:
   build:
