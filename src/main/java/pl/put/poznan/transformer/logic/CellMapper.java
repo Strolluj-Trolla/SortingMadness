@@ -10,7 +10,7 @@ public class CellMapper {
     /**
      * Conversion method for input data.
      *
-     * @param input a {@link List<>} of {@link List} of {@link Object} supplied with the request.
+     * @param input a {@link List} of {@link List} of {@link Object} supplied with the request.
      * @return a 2-D array of type {@link Cell} to be used in further processing.
      */
     public static Cell[][] toCells(List<List<Object>> input) {
