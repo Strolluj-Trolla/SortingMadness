@@ -2,8 +2,17 @@ package pl.put.poznan.transformer.logic;
 
 import java.util.List;
 
+/**
+ * A unit for converting received data from the format received from the client to the one used internally.
+ */
 public class CellMapper {
 
+    /**
+     * Conversion method for input data.
+     *
+     * @param input a {@link List<>} of {@link List} of {@link Object} supplied with the request.
+     * @return a 2-D array of type {@link Cell} to be used in further processing.
+     */
     public static Cell[][] toCells(List<List<Object>> input) {
 
         if (input == null || input.isEmpty()) {
