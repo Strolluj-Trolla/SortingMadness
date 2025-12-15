@@ -62,7 +62,6 @@ public class Sorter {
 
         int[] help = new int[max + 1];
         for (int value : tab) help[value]++;
-
         int i = 0;
         if(order==Order.RISING){
             for (int j = 0; j < max + 1; j++) {
