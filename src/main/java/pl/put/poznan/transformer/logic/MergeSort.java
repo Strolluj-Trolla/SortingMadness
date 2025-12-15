@@ -3,8 +3,8 @@ package pl.put.poznan.transformer.logic;
 import static java.util.Objects.isNull;
 
 public class MergeSort implements SortAlgorithm{
-    public void sort(Cell[][] tab, int column, int maxIter, Order order) {
-        mergeSort(tab, column, 0, tab.length-1, maxIter, order);
+    public boolean sort(Cell[][] tab, int column, int maxIter, Order order) {
+        return mergeSort(tab, column, 0, tab.length-1, maxIter, order);
     }
 
     private static void merge(Cell[][] tab, int column, int start, int end, Order order){
@@ -54,16 +54,17 @@ public class MergeSort implements SortAlgorithm{
 
     }
 
-    private static void mergeSort(Cell[][] tab, int column, int start, int end, int maxDepth, Order order){
-
+    private static boolean mergeSort(Cell[][] tab, int column, int start, int end, int maxDepth, Order order){
+        boolean complete=true;
         if((maxDepth>0)||(maxDepth==-1)){
             int newMax=maxDepth;
             if(maxDepth!=-1)newMax--;
             int middle = (start + end) / 2;
-            if (start < middle) mergeSort(tab, column, start, middle, newMax, order);
-            if (middle + 1 < end) mergeSort(tab, column, middle + 1, end, newMax, order);
+            if (start < middle) complete=mergeSort(tab, column, start, middle, newMax, order);
+            if (middle + 1 < end) complete=(complete)&(mergeSort(tab, column, middle + 1, end, newMax, order));
         }
+        else complete=false;
         merge(tab, column, start, end, order);
-
+        return complete;
     }
 }

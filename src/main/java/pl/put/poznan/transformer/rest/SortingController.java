@@ -45,9 +45,11 @@ public class SortingController {
             if (r.isError()) {
                 dto.setError(r.getErrMessage());
                 dto.setTimeNs(null);
+                dto.setComplete(null);
                 dto.setData(null);
             } else {
                 dto.setTimeNs((long) r.getTime());
+                dto.setComplete(r.isComplete());
                 dto.setData(mapResultData(r.getData()));
                 dto.setError(null);
             }

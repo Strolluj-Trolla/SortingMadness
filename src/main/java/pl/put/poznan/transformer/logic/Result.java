@@ -7,12 +7,14 @@ import static java.util.Objects.isNull;
 public class Result {
     final private String name;
     final private double time;
+    final private boolean complete;
     final private String errMessage;
     final private Cell[][] data;
 
-    public Result(String name, double time, Cell[][] data) {
+    public Result(String name, double time, boolean complete, Cell[][] data) {
         this.name = name;
         this.time = time;
+        this.complete = complete;
         this.data = data;
         this.errMessage = null;
     }
@@ -20,6 +22,7 @@ public class Result {
     public Result(String name, String errMessage) {
         this.name = name;
         this.time = -1;
+        this.complete = false;
         this.data = null;
         this.errMessage = errMessage;
     }
@@ -40,6 +43,10 @@ public class Result {
         return this.errMessage != null;
     }
 
+    public boolean isComplete() {
+        return complete;
+    }
+
     public String getErrMessage() {
         return this.errMessage;
     }
@@ -50,6 +57,7 @@ public class Result {
             if(res.isError())System.out.println(res.getErrMessage());
             else{
                 System.out.println("Time: "+res.getTime()+"ns");
+                System.out.println("Sorting complete? "+res.isComplete());
                 System.out.println("Sorted data:");
                 Cell[][] sorted=res.getData();
                 for (Cell[] cells : sorted) {

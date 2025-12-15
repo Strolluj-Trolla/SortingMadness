@@ -3,12 +3,12 @@ package pl.put.poznan.transformer.logic;
 import static java.util.Objects.isNull;
 
 public class QuickSort implements SortAlgorithm{
-    public void sort(Cell[][] tab, int column, int maxIter, Order order) {
-        quickSort(tab, column, 0, tab.length-1, maxIter, order);
+    public boolean sort(Cell[][] tab, int column, int maxIter, Order order) {
+        return quickSort(tab, column, 0, tab.length-1, maxIter, order);
     }
 
-    public void quickSort(Cell[][] tab, int column, int start, int end, int maxDepth, Order order) {
-        if(!((maxDepth>0)||(maxDepth==-1)))return;
+    public boolean quickSort(Cell[][] tab, int column, int start, int end, int maxDepth, Order order) {
+        if(!((maxDepth>0)||(maxDepth==-1)))return false;
         int newMax = maxDepth;
         if (maxDepth != -1) newMax--;
 
@@ -46,7 +46,9 @@ public class QuickSort implements SortAlgorithm{
             } while (i <= j);
         }
 
-        if (i < end) quickSort(tab, column, i, end, newMax, order);
-        if (j > start) quickSort(tab, column, start, j, newMax, order);
+        boolean complete=true;
+        if (i < end) complete=quickSort(tab, column, i, end, newMax, order);
+        if (j > start) complete=(complete)&(quickSort(tab, column, start, j, newMax, order));
+        return complete;
     }
 }
