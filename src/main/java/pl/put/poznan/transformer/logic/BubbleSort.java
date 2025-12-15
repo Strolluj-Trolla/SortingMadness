@@ -1,7 +1,5 @@
 package pl.put.poznan.transformer.logic;
 
-import static java.util.Objects.isNull;
-
 public class BubbleSort implements SortAlgorithm {
     public boolean sort(Cell[][] tab, int column, int maxIter, Order order) {
         boolean changed = false;
@@ -9,37 +7,19 @@ public class BubbleSort implements SortAlgorithm {
         int sign=1;
         if(order==Order.FALLING)sign=-1;
 
-        if(isNull(tab[0][column].str)) {
-            for (int i = tab.length - 1; i > 0; i--) {
-                if((curIter>=maxIter)&&(maxIter!=-1))return false;
-                curIter++;
-                for (int j = 0; j < i; j++) {
-                    if (sign*tab[j][column].num > sign*tab[j + 1][column].num) {
-                        Cell[] helper = tab[j + 1];
-                        tab[j + 1] = tab[j];
-                        tab[j] = helper;
+        for (int i = tab.length - 1; i > 0; i--) {
+            if((curIter>=maxIter)&&(maxIter!=-1))return false;
+            curIter++;
+            for (int j = 0; j < i; j++) {
+                if (sign*tab[j][column].compareTo(tab[j + 1][column])>0) {
+                    Cell[] helper = tab[j + 1];
+                    tab[j + 1] = tab[j];
+                    tab[j] = helper;
 
-                        changed = true;
-                    }
+                    changed = true;
                 }
-                if (!changed) return true;
             }
-        }
-        else{
-            for (int i = tab.length - 1; i > 0; i--) {
-                if((curIter>=maxIter)&&(maxIter!=-1))return false;
-                curIter++;
-                for (int j = 0; j < i; j++) {
-                    if (sign*tab[j][column].str.compareTo(tab[j + 1][column].str)>0) {
-                        Cell[] helper = tab[j + 1];
-                        tab[j + 1] = tab[j];
-                        tab[j] = helper;
-
-                        changed = true;
-                    }
-                }
-                if (!changed) return true;
-            }
+            if (!changed) return true;
         }
         return true;
     }
