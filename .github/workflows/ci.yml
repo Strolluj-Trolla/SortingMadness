@@ -24,7 +24,7 @@ jobs:
           name: SortingMadness
           path: staging
       - name: Upload release if tagged
-        if: github.ref_type == "tag"
+        if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
           files: staging/*
