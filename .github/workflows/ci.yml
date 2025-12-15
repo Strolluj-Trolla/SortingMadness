@@ -1,5 +1,8 @@
 name: Verify and build
 
+permissions:
+  contents: write
+
 on: [push]
 
 jobs:
