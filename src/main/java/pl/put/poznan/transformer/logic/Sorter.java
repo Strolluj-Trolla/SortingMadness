@@ -42,7 +42,6 @@ public class Sorter {
         return algo.sort(tab, column, maxIter, order);
     }
 
-
     /**
      * A simple implementation of the <a href="https://en.wikipedia.org/wiki/Counting_sort">counting sort algorithm</a>
      * This implementation only works for 1-D arrays of integers.
