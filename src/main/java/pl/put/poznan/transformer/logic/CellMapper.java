@@ -1,6 +1,4 @@
-package pl.put.poznan.transformer.rest.mapper;
-
-import pl.put.poznan.transformer.logic.Cell;
+package pl.put.poznan.transformer.logic;
 
 import java.util.List;
 

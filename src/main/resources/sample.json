@@ -1,0 +1,7 @@
+{
+  "data": [[3, "cb"],[2, "ba"],[4, "54"],[42, "abc"],[1,"siemandero"]],
+  "column": 1,
+  "algorithms": ["bubble", "insertion", "binaryInsertion", "selection", "merge", "quick", "counting"],
+  "order": "falling",
+  "maxIter": -1
+}

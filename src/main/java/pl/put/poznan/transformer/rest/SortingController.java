@@ -8,7 +8,7 @@ import pl.put.poznan.transformer.logic.SortAlgorithm.Order;
 import pl.put.poznan.transformer.rest.dto.SortRequestDTO;
 import pl.put.poznan.transformer.rest.dto.SortResponseDTO;
 import pl.put.poznan.transformer.rest.dto.SortResultDTO;
-import pl.put.poznan.transformer.rest.mapper.CellMapper;
+import pl.put.poznan.transformer.logic.CellMapper;
 
 import java.util.ArrayList;
 import java.util.List;
