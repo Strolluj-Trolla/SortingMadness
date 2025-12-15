@@ -53,14 +53,10 @@ public class SortService {
             dto.setAlgorithm(r.getName());
             if (r.isError()) {
                 dto.setError(r.getErrMessage());
-                dto.setTimeNs(null);
-                dto.setComplete(null);
-                dto.setData(null);
             } else {
                 dto.setTimeNs((long) r.getTime());
                 dto.setComplete(r.isComplete());
                 dto.setData(mapResultData(r.getData()));
-                dto.setError(null);
             }
             dtoResults.add(dto);
         }

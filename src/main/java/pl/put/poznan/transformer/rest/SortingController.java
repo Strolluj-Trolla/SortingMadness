@@ -1,7 +1,7 @@
 package pl.put.poznan.transformer.rest;
 
 import org.springframework.web.bind.annotation.*;
-import pl.put.poznan.transformer.logic.*;
+import pl.put.poznan.transformer.logic.SortService;
 import pl.put.poznan.transformer.rest.dto.SortRequestDTO;
 import pl.put.poznan.transformer.rest.dto.SortResponseDTO;
 
