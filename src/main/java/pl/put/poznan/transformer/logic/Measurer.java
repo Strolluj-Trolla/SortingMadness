@@ -48,6 +48,7 @@ public class Measurer {
                     System.arraycopy(data[i], 0, sorted[i], 0, data[i].length);
                 }
 
+                boolean complete;
                 boolean algorithmRecognized = true;
                 switch (name) {
                     case "bubble": sorter.setStrategy(new BubbleSort());
@@ -78,17 +79,17 @@ public class Measurer {
                     if (!countingApplicable) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
                     }
-                    Sorter.countingSort(convData, order);
+                    complete=Sorter.countingSort(convData, order);
                     for (int i = 0; i < data.length; i++) {
                         sorted[i][0] = new Cell(convData[i]);
                     }
                 } else {
-                    sorter.sort(sorted, column, maxIter, order);
+                    complete=sorter.sort(sorted, column, maxIter, order);
                 }
 
                 Instant end = Instant.now();
                 long timeNs = Duration.between(start, end).toNanos();
-                results.add(new Result(name, timeNs, sorted));
+                results.add(new Result(name, timeNs, complete, sorted));
 
             } catch (IllegalArgumentException ex) {
                 results.add(new Result(name, ex.getMessage()));

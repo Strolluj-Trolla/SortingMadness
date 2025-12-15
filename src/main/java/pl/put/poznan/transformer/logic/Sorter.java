@@ -14,12 +14,12 @@ public class Sorter {
         this.algo=algorithm;
     }
 
-    public void sort(Cell[][] tab, int column, int maxIter, Order order){
-        algo.sort(tab, column, maxIter, order);
+    public boolean sort(Cell[][] tab, int column, int maxIter, Order order){
+        return algo.sort(tab, column, maxIter, order);
     }
 
     //only for 1-dim int arrays
-    public static void countingSort(int[] tab, Order order) {
+    public static boolean countingSort(int[] tab, Order order) {
         int max = tab[0];
         int min = tab[0];
         for (int item : tab) {
@@ -48,5 +48,6 @@ public class Sorter {
                 }
             }
         }
+        return true;
     }
 }
