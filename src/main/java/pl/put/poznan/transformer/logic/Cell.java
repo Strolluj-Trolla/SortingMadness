@@ -24,7 +24,6 @@ public class Cell implements Comparable<Cell> {
     public Double getNum() {
         return num;
     }
-
     public String getStr() {
         return str;
     }
