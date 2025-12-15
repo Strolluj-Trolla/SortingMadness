@@ -1,6 +1,8 @@
 package pl.put.poznan.transformer.logic;
 
-public class Cell {
+import org.springframework.lang.NonNull;
+
+public class Cell implements Comparable<Cell> {
     public Double num;
     public String str;
 
@@ -25,5 +27,19 @@ public class Cell {
 
     public String getStr() {
         return str;
+    }
+
+    @Override
+    public int compareTo(@NonNull Cell c){
+        if(this.str==null){
+            if(c.str==null){
+                return this.num.compareTo(c.num);
+            }
+            return -10;
+        }
+        if(c.str==null) {
+            return 10;
+        }
+        return c.str.compareTo(this.str);
     }
 }
