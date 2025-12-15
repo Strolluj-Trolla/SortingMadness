@@ -8,7 +8,13 @@ import org.springframework.lang.NonNull;
  * Also implements the {@link Comparable} interface to allow comparing to a  different {@link Cell}.
  */
 public class Cell implements Comparable<Cell> {
+    /**
+     * Numerical value of the {@link Cell}. Mutually exclusive with {@link #str}.
+     */
     public final Double num;
+    /**
+     * Text value of the {@link Cell}. Mutually exclusive with {@link #num}.
+     */
     public final String str;
 
     /**

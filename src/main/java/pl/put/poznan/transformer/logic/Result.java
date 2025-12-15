@@ -7,13 +7,28 @@ import java.util.List;
 import static java.util.Objects.isNull;
 
 /** A simple class for holding results of a sorting run. Used mainly by the {@link Measurer} class.
- *
+ * Fields not used in the chosen constructor are set to {@code null}.
  */
 public class Result {
+    /**
+     * Contains the name of the algorithm used.
+     */
     final private String name;
+    /**
+     * Holds the sorting time.
+     */
     final private double time;
+    /**
+     * Denotes whether sorting was completed with the given number of iterations.
+     */
     final private boolean complete;
+    /**
+     * Contains error messages generated while sorting.
+     */
     final private String errMessage;
+    /**
+     * A 2-D array of type {@link Cell} holing sorted data.
+     */
     final private Cell[][] data;
 
     /**
