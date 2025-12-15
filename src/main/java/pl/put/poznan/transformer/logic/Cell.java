@@ -40,6 +40,6 @@ public class Cell implements Comparable<Cell> {
         if(c.str==null) {
             return 10;
         }
-        return c.str.compareTo(this.str);
+        return this.str.compareTo(c.str);
     }
 }
