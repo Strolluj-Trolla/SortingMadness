@@ -7,17 +7,49 @@ import java.util.List;
 import pl.put.poznan.transformer.logic.SortAlgorithm.Order;
 import static java.util.Objects.isNull;
 
+/**
+ * Measuring class for managing and obtaining results of sorting runs.
+ */
 public class Measurer {
+    /**
+     * A {@link Sorter} object to be used as a sorting engine.
+     */
     private final Sorter sorter;
 
+    /**
+     * A light constructor which initializes {@link #sorter}.
+     */
     public Measurer() {
         this.sorter = new Sorter();
     }
 
+    /**
+     * A shorthand for the full definition of {@link #measure(Cell[][], int, List, int, Order)}.
+     * Used for testing and debugging.
+     * @deprecated
+     *
+     * @param data a 2-D array of type {@link Cell} to be sorted.
+     * @param column the index of the column which will be the sorting criteria.
+     * @param names a {@link List} of type {@link String} containing names of algorithms to be run and measured.
+     * @return a {@link List} of type {@link Result} holding information about the sorting runs.
+     */
     public List<Result> measure(Cell[][] data, int column, List<String> names) {
         return measure(data, column, names, -1, Order.RISING);
     }
 
+    /**
+     * Method for running tests for different sorting algorithms. Runs a test for each {@code name} supplied.
+     * Possible names are {@code "bubble"}, {@code "insertion"}, {@code "binaryInsertion"}, {@code "selection"},
+     * {@code "merge"}, {@code "quick"}, {@code "counting"}.
+     *
+     * @param data a 2-D array of type {@link Cell} to be sorted.
+     * @param column the index of the column which will be the sorting criteria.
+     * @param names a {@link List} of type {@link String} containing names of algorithms to be run and measured.
+     * @param maxIter maximum number of iterations. Value of {@code -1} means unlimited iterations,
+     * {@code <-1} means none.
+     * @param order an enum Order (from {@link SortAlgorithm}) value determining the sorting direction.
+     * @return a {@link List} of type {@link Result} holding information about the sorting runs.
+     */
     public List<Result> measure(Cell[][] data, int column, List<String> names, int maxIter, Order order) {
         List<Result> results = new ArrayList<>();
 

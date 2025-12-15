@@ -1,20 +1,32 @@
 package pl.put.poznan.transformer.logic;
 
-import pl.put.poznan.transformer.rest.dto.SortRequestDTO;
-import pl.put.poznan.transformer.rest.dto.SortResponseDTO;
-import pl.put.poznan.transformer.rest.dto.SortResultDTO;
+import pl.put.poznan.transformer.rest.dto.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Logic handler for the REST service
+ */
 public class SortService {
-
+    /**
+     * The request to be handled by this service.
+     */
     private final SortRequestDTO sortRequest;
 
+    /**
+     * Constructor for receiving a request.
+     * @param request the request to be handled.
+     */
     public SortService(SortRequestDTO request){
         this.sortRequest = request;
     }
 
+    /**
+     * Main logic of handling the request. Processes the input using {@link CellMapper},
+     * runs desired tests using {@link Measurer}, then packs results to form a reply.
+     * @return a {@link SortResponseDTO} containing results of performed tests.
+     */
     public SortResponseDTO handleRequest(){
         SortRequestDTO request =this.sortRequest;
         Cell[][] data = CellMapper.toCells(request.getData());
@@ -41,14 +53,10 @@ public class SortService {
             dto.setAlgorithm(r.getName());
             if (r.isError()) {
                 dto.setError(r.getErrMessage());
-                dto.setTimeNs(null);
-                dto.setComplete(null);
-                dto.setData(null);
             } else {
                 dto.setTimeNs((long) r.getTime());
                 dto.setComplete(r.isComplete());
                 dto.setData(mapResultData(r.getData()));
-                dto.setError(null);
             }
             dtoResults.add(dto);
         }
@@ -56,6 +64,11 @@ public class SortService {
         return new SortResponseDTO(dtoResults);
     }
 
+    /**
+     * Helper function for converting 2-D arrays of type {@link Cell} used in logic to output format.
+     * @param data a 2-D array of type {@link Cell}.
+     * @return a {@link List} of {@link List} {@link Object} to be used in output.
+     */
     private List<List<Object>> mapResultData(Cell[][] data) {
         List<List<Object>> out = new ArrayList<>();
         if (data == null) return out;

@@ -1,9 +1,13 @@
-name: Verify and build
+name: Release if tagged
 
-on: [push]
-
+on:
+  push:
+    branches:
+      main
+      
 jobs:
   build:
+    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
 
     steps:
@@ -14,12 +18,11 @@ jobs:
           java-version: '11'
           distribution: 'adopt'
           cache: maven
-      - name: Validate, build and run tests
+      - name: Build project
         run: mvn --batch-mode --update-snapshots verify
       - name: Prepare .jar file
         run: mkdir staging && cp target/*.jar staging
-      - name: Upload build
-        uses: actions/upload-artifact@v4
+      - name: Upload release
+        uses: softprops/action-gh-release@v2
         with:
-          name: SortingMadness
-          path: staging
+          files: staging/*

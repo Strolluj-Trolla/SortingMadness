@@ -1,6 +1,20 @@
 package pl.put.poznan.transformer.logic;
 
+/**
+ * A class containing an implementation of binary insertion sort. Implements the {@link SortAlgorithm} interface.
+ */
 public class BinaryInsertSort implements SortAlgorithm{
+    /**
+     * An in-place implementation of the
+     * <a href="https://web.archive.org/web/20120224225904/http://www.pathcom.com/~vadco/binary.html">binary insertion sort algorithm</a>
+     *
+     * @param tab a 2-D array of type {@link Cell} to be sorted.
+     * @param column the index of the column which will be the sorting criteria.
+     * @param maxIter maximum number of iterations. Value of {@code -1} means unlimited iterations,
+     * {@code <-1} means none.
+     * @param order an enum Order value determining the sorting direction.
+     * @return a boolean value of whether sorting could be completed in the given number of iterations.
+     */
     public boolean sort(Cell[][] tab, int column, int maxIter, Order order) {
         int n = tab.length - 1;
         int curIter=0;
