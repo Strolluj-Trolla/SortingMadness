@@ -1,6 +1,20 @@
 package pl.put.poznan.transformer.logic;
 
+/**
+ * A class containing an implementation of bubble sort. Implements the {@link SortAlgorithm} interface.
+ */
 public class BubbleSort implements SortAlgorithm {
+    /**
+     * An in-place implementation of the
+     * <a href="https://en.wikipedia.org/wiki/Bubble_sort">bubble sort algorithm</a>
+     *
+     * @param tab a 2-D array of type {@link Cell} to be sorted
+     * @param column the number of the column which will be the sorting criteria.
+     * @param maxIter maximum number of iterations. Value of {@code -1} means unlimited iterations,
+     * {@code <-1} means none.
+     * @param order an enum Order value determining the sorting direction
+     * @return a boolean value of whether sorting could be completed in the given number of iterations.
+     */
     public boolean sort(Cell[][] tab, int column, int maxIter, Order order) {
         boolean changed = false;
         int curIter=0;
