@@ -1,7 +1,5 @@
 package pl.put.poznan.transformer.logic;
 
-import static java.util.Objects.isNull;
-
 public class MergeSort implements SortAlgorithm{
     public boolean sort(Cell[][] tab, int column, int maxIter, Order order) {
         return mergeSort(tab, column, 0, tab.length-1, maxIter, order);
@@ -17,29 +15,15 @@ public class MergeSort implements SortAlgorithm{
         int i = start;
         int i_left = start;
         int i_right = middle + 1;
-        if(isNull(tab[0][column].str)) {
-            while (i_left <= middle && i_right <= end) {
-                if (sign*helper[i_left - start][column].num < sign*helper[i_right - start][column].num) {
-                    tab[i] = helper[i_left - start];
-                    i_left++;
-                } else {
-                    tab[i] = helper[i_right - start];
-                    i_right++;
-                }
-                i++;
+        while (i_left <= middle && i_right <= end) {
+            if (sign*helper[i_left - start][column].compareTo(helper[i_right - start][column])<0) {
+                tab[i] = helper[i_left - start];
+                i_left++;
+            } else {
+                tab[i] = helper[i_right - start];
+                i_right++;
             }
-        }
-        else{
-            while (i_left <= middle && i_right <= end) {
-                if (sign*helper[i_left - start][column].str.compareTo(helper[i_right - start][column].str)<0) {
-                    tab[i] = helper[i_left - start];
-                    i_left++;
-                } else {
-                    tab[i] = helper[i_right - start];
-                    i_right++;
-                }
-                i++;
-            }
+            i++;
         }
         while (i_left <= middle) {
             tab[i] = helper[i_left - start];
