@@ -3,11 +3,12 @@ name: Release if tagged
 on:
   push:
     branches:
-      main
+      - "main"
+    tags:
+      - "v*"
       
 jobs:
   build:
-    if: github.ref_type == 'tag'
     runs-on: ubuntu-latest
 
     steps:
