@@ -6,7 +6,7 @@ package pl.put.poznan.transformer.logic;
 public class InsertSort implements SortAlgorithm{
     /**
      * An in-place implementation of the
-     * <a href="https://en.wikipedia.org/wiki/Insertion_sort">insertion algorithm</a>
+     * <a href="https://en.wikipedia.org/wiki/Insertion_sort">insertion sort algorithm</a>
      *
      * @param tab a 2-D array of type {@link Cell} to be sorted
      * @param column the number of the column which will be the sorting criteria.
