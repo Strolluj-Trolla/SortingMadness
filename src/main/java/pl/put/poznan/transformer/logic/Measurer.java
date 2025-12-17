@@ -66,7 +66,14 @@ public class Measurer {
         List<Result> results = new ArrayList<>();
 
         if (data == null || data.length == 0) {
+            logger.error("Data received is empty, skipping request");
             results.add(new Result("all", "Input data is empty"));
+            return results;
+        }
+
+        if((column<0)||(column>=data[0].length)) {
+            logger.error("Column index out of bounds, skipping request");
+            results.add(new Result("all", "Invalid column index for supplied data"));
             return results;
         }
 
@@ -125,9 +132,6 @@ public class Measurer {
                 if ("counting".equals(name)) {
                     if (!countingApplicable) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
-                    }
-                    if (column != 0) {
-                        throw new IllegalArgumentException("Invalid column index for counting sort");
                     }
                     complete=Sorter.countingSort(convData, order);
                     for (int i = 0; i < data.length; i++) {
