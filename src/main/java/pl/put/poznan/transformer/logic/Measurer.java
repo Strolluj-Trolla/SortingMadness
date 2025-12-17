@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import pl.put.poznan.transformer.logic.SortAlgorithm.Order;
 import static java.util.Objects.isNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Measuring class for managing and obtaining results of sorting runs.
@@ -15,6 +17,12 @@ public class Measurer {
      * A {@link Sorter} object to be used as a sorting engine.
      */
     private final Sorter sorter;
+
+    /**
+     * Logger instance used for logging execution details and diagnostics
+     * of the sorting measurement process.
+     */
+    private static final Logger logger = LoggerFactory.getLogger(Measurer.class);
 
     /**
      * A light constructor which initializes {@link #sorter}.
@@ -51,6 +59,10 @@ public class Measurer {
      * @return a {@link List} of type {@link Result} holding information about the sorting runs.
      */
     public List<Result> measure(Cell[][] data, int column, List<String> names, int maxIter, Order order) {
+        logger.info("Data received, Starting sorting");
+        logger.debug("Input - size: {}, column: {}, maxIter: {}, order: {}",
+                data.length, column, maxIter, order);
+
         List<Result> results = new ArrayList<>();
 
         if (data == null || data.length == 0) {
@@ -100,16 +112,22 @@ public class Measurer {
                     default:
                         algorithmRecognized = false;
                         results.add(new Result(name, "Algorithm not recognized"));
+                        logger.warn("Algorithm {} not recognized", name);
                         break;
                 }
 
                 if (!algorithmRecognized) continue;
+
+                logger.debug("Algorithm {} recognized and initialized", name);
 
                 Instant start = Instant.now();
 
                 if ("counting".equals(name)) {
                     if (!countingApplicable) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
+                    }
+                    if (column != 0) {
+                        throw new IllegalArgumentException("Invalid column index for counting sort");
                     }
                     complete=Sorter.countingSort(convData, order);
                     for (int i = 0; i < data.length; i++) {
@@ -123,9 +141,17 @@ public class Measurer {
                 long timeNs = Duration.between(start, end).toNanos();
                 results.add(new Result(name, timeNs, complete, sorted));
 
+                if (complete) {
+                    logger.info("Algorithm {} finished sorting successfully", name);
+                } else {
+                    logger.info("Algorithm {} stopped before completion (iteration limit reached)", name);
+                }
+
             } catch (IllegalArgumentException ex) {
+                logger.error("Algorithm {} failed: {}", name, ex.getMessage());
                 results.add(new Result(name, ex.getMessage()));
             } catch (Exception ex) {
+                logger.error("Unexpected error while running {}: {}", name, ex.getMessage());
                 results.add(new Result(name, "Error while sorting: " + ex.getMessage()));
             }
         }
