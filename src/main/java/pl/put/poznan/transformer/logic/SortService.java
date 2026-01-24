@@ -30,12 +30,25 @@ public class SortService {
     public SortResponseDTO handleRequest(){
         SortRequestDTO request =this.sortRequest;
         Cell[][] data = CellMapper.toCells(request.getData());
-        Measurer measurer = new Measurer();
 
         SortAlgorithm.Order order = SortAlgorithm.Order.RISING;
         if (request.getOrder() != null && request.getOrder().equalsIgnoreCase("FALLING")) {
             order = SortAlgorithm.Order.FALLING;
         }
+
+        Scrambler.ScrambleType scrambleType=Scrambler.ScrambleType.NONE;
+        if(request.getScramble()!=null){
+            if(request.getScramble().equals("RANDOM"))scrambleType = Scrambler.ScrambleType.RANDOM;
+            else if(request.getScramble().equals("REVERSE")){
+                if(order==SortAlgorithm.Order.FALLING) scrambleType = Scrambler.ScrambleType.RISING;
+                else scrambleType = Scrambler.ScrambleType.FALLING;
+            }
+        }
+
+        Scrambler scrambler = new Scrambler();
+        scrambler.scramble(data, request.getColumn(), scrambleType);
+
+        Measurer measurer = new Measurer();
 
         int maxIter = request.getMaxIter() != null ? request.getMaxIter() : -1;
 
