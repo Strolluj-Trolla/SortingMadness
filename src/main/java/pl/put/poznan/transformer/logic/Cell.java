@@ -2,6 +2,8 @@ package pl.put.poznan.transformer.logic;
 
 import org.springframework.lang.NonNull;
 
+import java.util.Objects;
+
 /**
  * Helper class to store a single unit of data. Used to create arrays of data to process.
  * Holds either a {@link Double} or a {@link String}, never both.
@@ -73,5 +75,19 @@ public class Cell implements Comparable<Cell> {
             return 10;
         }
         return this.str.compareTo(c.str);
+    }
+
+    /**
+     * An override for the default equals() method. Allows checking whether two cells are the same.
+     * @param o   the reference object with which to compare.
+     * @return true if both objects are of type {@link Cell}, and both of their {@link #num} and
+     *  {@link #str} values are the same, otherwise false.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return (Objects.equals(this.num, cell.num)) && (Objects.equals(this.str, cell.str));
     }
 }

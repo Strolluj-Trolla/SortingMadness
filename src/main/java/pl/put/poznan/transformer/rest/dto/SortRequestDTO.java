@@ -26,6 +26,10 @@ public class SortRequestDTO {
      * Maximum number of iterations.
      */
     private Integer maxIter;
+    /**
+     * Which way to scramble given data
+     */
+    private String scramble;
 
     /**
      * Constructor for making an empty {@link SortRequestDTO} object to be filled later.
@@ -46,13 +50,15 @@ public class SortRequestDTO {
      * @param algorithms a {@link List} of {@link String} names of algorithms to be tested.
      * @param order a {@link String} containing the direction in which data will be sorted.
      * @param maxIter maximum number of iterations.
+     * @param scramble how to scramble the data.
      */
-    public SortRequestDTO(List<List<Object>> data, int column, List<String> algorithms, String order, Integer maxIter) {
+    public SortRequestDTO(List<List<Object>> data, int column, List<String> algorithms, String order, Integer maxIter, String scramble) {
         this.data = data;
         this.column = column;
         this.algorithms = algorithms;
         this.order = order;
         this.maxIter = maxIter;
+        this.scramble = scramble;
     }
 
     public List<List<Object>> getData() {
@@ -93,5 +99,13 @@ public class SortRequestDTO {
 
     public void setMaxIter(Integer maxIter) {
         this.maxIter = maxIter;
+    }
+
+    public String getScramble() {
+        return scramble;
+    }
+
+    public void setScramble(String scramble) {
+        this.scramble = scramble;
     }
 }

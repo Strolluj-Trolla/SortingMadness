@@ -26,7 +26,7 @@
     [95],[352],[212],[481],[136],[275],[409],[42],[318],[189],
     [466],[78],[247],[391],[104],[498],[66],[334],[198],[287]
   ],
-  "column": 1,
+  "column": 0,
   "algorithms": ["bubble", "insertion", "binaryInsertion", "selection", "merge", "quick", "counting"],
   "order": "rising",
   "maxIter": 50
