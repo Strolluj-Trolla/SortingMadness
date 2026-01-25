@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BubbleSortTest {
-    private SortAlgorithm sort;
+    private BubbleSort sort;
     Cell[][] cells;
 
     @BeforeEach

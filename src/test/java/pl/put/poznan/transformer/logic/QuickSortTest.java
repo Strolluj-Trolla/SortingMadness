@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class QuickSortTest {
-    private SortAlgorithm sort;
+    private QuickSort sort;
     Cell[][] cells;
 
     @BeforeEach

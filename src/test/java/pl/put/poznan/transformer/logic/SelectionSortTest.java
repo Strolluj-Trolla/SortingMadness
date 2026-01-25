@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MergeSortTest {
-    private MergeSort sort;
+class SelectionSortTest {
+    private SelectionSort sort;
     Cell[][] cells;
 
     @BeforeEach
     void setUp() {
-        this.sort = new MergeSort();
+        this.sort = new SelectionSort();
         this.cells= new Cell[][]{{new Cell(2), new Cell("jajko")},
                 {new Cell(1), new Cell("jabłko")},
                 {new Cell(5), new Cell("banan")},

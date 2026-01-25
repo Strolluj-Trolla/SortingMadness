@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InsertSortTest {
-    private SortAlgorithm sort;
+    private InsertSort sort;
     Cell[][] cells;
 
     @BeforeEach
