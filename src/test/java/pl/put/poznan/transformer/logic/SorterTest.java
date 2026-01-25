@@ -2,43 +2,66 @@ package pl.put.poznan.transformer.logic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.stubbing.Answer;
+
+import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class SorterTest {
-
     private Sorter sorter;
+    Cell[][] cells;
 
     @BeforeEach
     void setUp() {
         sorter = new Sorter();
+        this.cells= new Cell[][]{{new Cell(2), new Cell("jajko")},
+                {new Cell(1), new Cell("jabłko")},
+                {new Cell(5), new Cell("banan")},
+                {new Cell(8), new Cell("gruszka")},
+                {new Cell(-3), new Cell("śliwka")},
+                {new Cell(0), new Cell("truskawka")}};
     }
 
     @Test
-    void shouldSortInRisingOrderUsingBubbleSort() {
-        // given
-        Cell[][] data = cells(3, 1, 2);
-        sorter.setStrategy(new BubbleSort());
+    void sortRisingNums() {
+        Cell[][] cmp={{new Cell(-3), new Cell("śliwka")},
+                {new Cell(0), new Cell("truskawka")},
+                {new Cell(1), new Cell("jabłko")},
+                {new Cell(2), new Cell("jajko")},
+                {new Cell(5), new Cell("banan")},
+                {new Cell(8), new Cell("gruszka")}};
+        SortAlgorithm mock=mock(SortAlgorithm.class);
+        when(mock.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING)).thenAnswer(
+                (Answer<Boolean>)invocation->{
+                    this.cells=cmp;
+                    return true;
+                });
+        sorter.setStrategy(mock);
 
-        // when
-        boolean complete = sorter.sort(data, 0, -1, SortAlgorithm.Order.RISING);
+        boolean complete = sorter.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING);
 
-        // then
         assertTrue(complete);
-        assertArrayEquals(new int[]{1, 2, 3}, extract(data));
+        assertArrayEquals(cmp, this.cells);
     }
 
     @Test
-    void shouldReturnIncompleteWhenIterationsLimitReached() {
-        // given
-        Cell[][] data = cells(3, 2, 1);
-        sorter.setStrategy(new QuickSort());
+    void sortIncomplete() {
+        SortAlgorithm mock=mock(SortAlgorithm.class);
+        when(mock.sort(any(Cell[][].class), anyInt(), eq(-2), any(SortAlgorithm.Order.class))).thenReturn(false);
+        sorter.setStrategy(mock);
 
-        // when
-        boolean complete = sorter.sort(data, 0, 0, SortAlgorithm.Order.RISING);
+        boolean complete = sorter.sort(this.cells, 0, -2, SortAlgorithm.Order.RISING);
 
-        // then
         assertFalse(complete);
+    }
+
+    @Test
+    void sortThrowsIndexOutOfRange() {
+        SortAlgorithm mock=mock(SortAlgorithm.class);
+        when(mock.sort(any(Cell[][].class), eq(-1), anyInt(), any(SortAlgorithm.Order.class))).thenThrow(IndexOutOfBoundsException.class);
+        sorter.setStrategy(mock);
+        assertThrows(IndexOutOfBoundsException.class, ()->sorter.sort(this.cells, -1, -1, SortAlgorithm.Order.RISING));
     }
 
     @Test
@@ -67,17 +90,39 @@ class SorterTest {
 
     @Test
     void shouldAllowChangingSortingStrategy() {
-        // given
-        Cell[][] data = cells(2, 1);
+        Cell[][] cmp={{new Cell(-3), new Cell("śliwka")},
+                {new Cell(0), new Cell("truskawka")},
+                {new Cell(1), new Cell("jabłko")},
+                {new Cell(2), new Cell("jajko")},
+                {new Cell(5), new Cell("banan")},
+                {new Cell(8), new Cell("gruszka")}};
+        MergeSort mockMerge=mock(MergeSort.class);
+        when(mockMerge.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING)).thenAnswer(
+                (Answer<Boolean>)invocation->{
+                    this.cells=cmp;
+                    return true;
+                });
+        Cell[][]orig=this.cells.clone();
+        Cell[][] cells2;
+        BubbleSort mockBubble=mock(BubbleSort.class);
+        when(mockBubble.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING)).thenAnswer(
+                (Answer<Boolean>)invocation->{
+                    this.cells=cmp;
+                    return true;
+                });
 
-        sorter.setStrategy(new SelectionSort());
-
-        // when
-        boolean complete = sorter.sort(data, 0, -1, SortAlgorithm.Order.RISING);
+        sorter.setStrategy(mockMerge);
+        boolean complete1 = sorter.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING);
+        cells2=this.cells.clone();
+        this.cells=orig;
+        sorter.setStrategy(mockBubble);
+        boolean complete2 = sorter.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING);
 
         // then
-        assertTrue(complete);
-        assertArrayEquals(new int[]{1, 2}, extract(data));
+        assertTrue(complete1);
+        assertArrayEquals(cmp, cells2);
+        assertTrue(complete2);
+        assertArrayEquals(cmp, this.cells);
     }
 
     // ===== helpers =====
