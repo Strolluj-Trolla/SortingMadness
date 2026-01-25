@@ -28,7 +28,15 @@ public class Measurer {
      * A light constructor which initializes {@link #sorter}.
      */
     public Measurer() {
-        this.sorter = new Sorter();
+        this(new Sorter());
+    }
+
+    /**
+     * A constructor which initializes {@link #sorter} with the object given as argument.
+     * @param sorter the {@link Sorter} object to be used by the constructed {@link Measurer}.
+     */
+    public Measurer(Sorter sorter) {
+        this.sorter = sorter;
     }
 
     /**

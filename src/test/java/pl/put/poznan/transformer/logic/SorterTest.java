@@ -102,10 +102,14 @@ class SorterTest {
                     this.cells=cmp;
                     return true;
                 });
-        Cell[][]orig=this.cells.clone();
+        Cell[][]orig=new Cell[this.cells.length][];
+        for (int i = 0; i < this.cells.length; i++) {
+            orig[i] = new Cell[this.cells[i].length];
+            System.arraycopy(this.cells[i], 0, orig[i], 0, this.cells[i].length);
+        }
         Cell[][] cells2;
         BubbleSort mockBubble=mock(BubbleSort.class);
-        when(mockBubble.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING)).thenAnswer(
+        when(mockBubble.sort(any(Cell[][].class), anyInt(), anyInt(), any(SortAlgorithm.Order.class))).thenAnswer(
                 (Answer<Boolean>)invocation->{
                     this.cells=cmp;
                     return true;
@@ -113,7 +117,11 @@ class SorterTest {
 
         sorter.setStrategy(mockMerge);
         boolean complete1 = sorter.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING);
-        cells2=this.cells.clone();
+        cells2=new Cell[this.cells.length][];
+        for (int i = 0; i < this.cells.length; i++) {
+            cells2[i] = new Cell[this.cells[i].length];
+            System.arraycopy(this.cells[i], 0, cells2[i], 0, this.cells[i].length);
+        }
         this.cells=orig;
         sorter.setStrategy(mockBubble);
         boolean complete2 = sorter.sort(this.cells, 0, -1, SortAlgorithm.Order.RISING);
@@ -125,21 +133,4 @@ class SorterTest {
         assertArrayEquals(cmp, this.cells);
     }
 
-    // ===== helpers =====
-
-    private Cell[][] cells(int... values) {
-        Cell[][] data = new Cell[values.length][1];
-        for (int i = 0; i < values.length; i++) {
-            data[i][0] = new Cell(values[i]);
-        }
-        return data;
-    }
-
-    private int[] extract(Cell[][] data) {
-        int[] result = new int[data.length];
-        for (int i = 0; i < data.length; i++) {
-            result[i] = data[i][0].getNum().intValue();
-        }
-        return result;
-    }
 }
