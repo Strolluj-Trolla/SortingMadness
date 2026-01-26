@@ -26,6 +26,16 @@ jobs:
         with:
           name: SortingMadness
           path: staging
+      - name: Build Docker image if tagged
+        uses: docker/build-push-action@v6.18.0
+        if: github.ref_type == 'tag'
+        with:
+          file: ./Dockerfile
+          tags: |
+            SortingMadness:${GITHUB_REF#refs/tags/}
+      - name: Prepare Docker image
+        if: github.ref_type == 'tag'
+        run: cp SortingMadness:${GITHUB_REF#refs/tags/} staging
       - name: Upload release if tagged
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
