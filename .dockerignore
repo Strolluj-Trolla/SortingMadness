@@ -1,0 +1,10 @@
+#Dockerfiles
+Dockerfile
+.dockerignore
+
+#Markdown files
+*.md
+
+#Github files
+.gitignore
+.github
