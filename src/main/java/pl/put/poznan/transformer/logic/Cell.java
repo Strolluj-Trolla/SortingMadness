@@ -57,6 +57,18 @@ public class Cell implements Comparable<Cell> {
         return str;
     }
 
+
+    /**
+     * An override toString() method for printing the {@link Cell}'s value.
+     * @return a string containing the value of {@link #num} converted to text or {@link #str},
+     *  whichever is not null.
+     */
+    @Override
+    public String toString() {
+        if(this.str == null)return this.num.toString();
+        return this.str;
+    }
+
     /**
      * An override method to compare this {@link Cell} to another.
      *

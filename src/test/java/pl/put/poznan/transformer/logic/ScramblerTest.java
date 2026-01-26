@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ScramblerTest {
-    Scrambler scrambler;
-    Cell[][] cells;
+    private Scrambler scrambler;
+    private Cell[][] cells;
 
     @BeforeEach
     void setUp() {
