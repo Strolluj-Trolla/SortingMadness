@@ -32,10 +32,10 @@ jobs:
         with:
           file: ./Dockerfile
           tags: |
-            SortingMadness:${GITHUB_REF#refs/tags/}
+            SortingMadness
       - name: Prepare Docker image
         if: github.ref_type == 'tag'
-        run: cp SortingMadness:${GITHUB_REF#refs/tags/} staging
+        run: cp SortingMadness staging
       - name: Upload release if tagged
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
