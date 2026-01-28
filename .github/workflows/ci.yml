@@ -32,10 +32,11 @@ jobs:
         with:
           file: ./Dockerfile
           tags: |
-            SortingMadness
+            sortingmadness:latest
+          outputs: type=docker,dest=./SortingMadness.tar
       - name: Prepare Docker image
         if: github.ref_type == 'tag'
-        run: cp SortingMadness staging
+        run: cp SortingMadness.tar staging
       - name: Upload release if tagged
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
