@@ -101,6 +101,14 @@ public class Measurer {
 
         for (String name : names) {
             try {
+                String effectiveName = name;
+
+                if ("auto".equals(name)) {
+                    effectiveName = chooseAlgorithmAutomatically(data, column, order);
+                    logger.info("Auto mode selected algorithm: {}", effectiveName);
+                    name = "auto-" + effectiveName;
+                }
+
                 Cell[][] sorted = new Cell[data.length][];
                 for (int i = 0; i < data.length; i++) {
                     sorted[i] = new Cell[data[i].length];
@@ -109,7 +117,7 @@ public class Measurer {
 
                 boolean complete;
                 boolean algorithmRecognized = true;
-                switch (name) {
+                switch (effectiveName) {
                     case "bubble": sorter.setStrategy(new BubbleSort());
                     break;
                     case "insertion": sorter.setStrategy(new InsertSort());
@@ -137,7 +145,7 @@ public class Measurer {
 
                 Instant start = Instant.now();
 
-                if ("counting".equals(name)) {
+                if ("counting".equals(effectiveName)) {
                     if (!countingApplicable) {
                         throw new IllegalArgumentException("Counting sort not applicable to given data");
                     }
@@ -170,4 +178,47 @@ public class Measurer {
 
         return results;
     }
+
+    private String chooseAlgorithmAutomatically(Cell[][] data, int column, Order order) {
+        int n = data.length;
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+        double sum = 0;
+        boolean allIntegers = true;
+        boolean nonNegative = true;
+        boolean numericColumn = true;
+        for (Cell[] row : data) {
+            if (row[column].num == null) {
+                numericColumn = false;
+                break;
+            }
+            double v = row[column].num;
+            sum += v;
+            min = Math.min(min, v);
+            max = Math.max(max, v);
+            if (v < 0) nonNegative = false;
+            if (v != Math.round(v)) allIntegers = false;
+        }
+
+        if (!numericColumn) {
+            return "merge";}
+
+        double avg = sum / n;
+        double range = max - min;
+
+        logger.debug(
+                "Auto stats -> n={}, min={}, max={}, avg={}, range={}, order={}",
+                n, min, max, avg, range, order);
+
+        if (data[0].length == 1 && column == 0 && allIntegers && nonNegative && range <= 10000) {
+            return "counting";}
+        if (n <= 30) {
+            return "insertion";}
+        if (n > 1000 && order == Order.FALLING) {
+            return "merge";}
+        if (range > 1_000_000) {
+            return "merge";}
+        return "quick";
+    }
+
 }
